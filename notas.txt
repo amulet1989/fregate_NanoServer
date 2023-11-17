@@ -1,0 +1,60 @@
+  cam_salida: #nombre a su gusto
+    ffmpeg:
+      # hwaccel_args: preset-nvidia-h264
+      inputs:
+        - path: rtsp://admin:2Mini001.@192.168.88.54
+          roles:
+            - detect #Detecta personas
+            - record #Graba el video
+    zones:
+      zone_0:
+        coordinates: 204,462,556,441,548,123,197,132
+    motion:
+      mask:
+        - 99,576,704,576,555,453,197,474
+        - 216,0,459,0,425,106,275,112
+    
+    detect:
+      width: 704
+      height: 576
+
+cam_entrada: #nombre a su gusto
+    ffmpeg:
+      # hwaccel_args: preset-nvidia-h264
+      inputs:
+        - path: rtsp://admin:2Mini001.@192.168.88.131
+          roles:
+            - detect #Detecta personas
+            - record #Graba el video
+    zones:
+      zone_0:
+        coordinates: 186,450,492,441,494,103,175,116
+      
+    motion:
+      mask:
+        - 70,576,594,576,496,447,173,454
+        - 446,0,408,92,261,98,217,0
+       
+  
+    detect:
+      width: 704
+      height: 576
+
+#######################
+    detect:
+      height: 576 #576
+      width: 704 #704
+      fps: 1
+      stationary:
+        interval: 0
+        threshold: 100
+
+    detect:
+      height: 576 #576
+      width: 704 #704
+      fps: 1
+      stationary:
+        interval: 0
+        threshold: 100
+
+# Records

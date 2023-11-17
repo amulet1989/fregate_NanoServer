@@ -1,0 +1,97 @@
+version: '3.9'
+
+services:
+
+  frigate:
+    # image: ghcr.io/blakeblackshear/frigate:dev-d11c1a2-tensorrt-jp5@sha256:a91fd0906c6b6e919f11ae61ac886bac4a3c525602cbac4c88b149c450d41263
+    #image: ghcr.io/blakeblackshear/frigate:dev-d11c1a2-tensorrt-jp4@sha256:34ea3157ca9c06bf7c55c4c85daa33a1881c1fbeb0c87b5e04dc407691d4d274
+    # image: ghcr.io/blakeblackshear/frigate:dev-d11c1a2@sha256:284016292856be3e4f03f6f499f358031aca1bf5a6b913bcc609af4c1f048975
+    image: ghcr.io/blakeblackshear/frigate:stable
+    # image: ghcr.io/blakeblackshear/frigate:latest
+    # si se corre en jetson
+    # image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
+    container_name: frigate
+    privileged: true
+    shm_size: "140mb"
+    #runtime: nvidia
+    #Leer https://docs.frigate.video/frigate/installation#calculating-required-shm-size
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./frigate/config:/config
+      - ./frigate/media:/media/frigate
+      #  - ./trt-models:/tensorrt_models
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./yolov8/:/yolov8
+      - ./videos/:/videos
+    #  - /run/jtop.sock:/run/jtop.sock
+    #  - type: tmpfs
+    #    target: /tmp/cache
+    #    tmpfs:
+    #      size: 1000000000
+    # network_mode: "host"
+    ports:
+      - "5000:5000"
+    restart: always
+    env_file:
+      - ./config.env
+      #deploy:
+      # <------------- Add this section
+      #resources:
+      # reservations:
+      #devices:
+      #  - driver: nvidia
+      # capabilities: [ gpu ]
+      #    count: all # number of GPUs
+
+      # grafana:
+      #   image: grafana/grafana:latest
+      #   container_name: grafana
+      #   ports:
+      #     - "3000:3000"
+      #   environment:
+      #     - GF_AUTH_ANONYMOUS_ENABLED=true
+      #     - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      #   volumes:
+      #     - ./grafana/data:/var/lib/grafana
+      #   restart: always
+
+      # prometheus:
+      #   image: prom/prometheus:latest
+      #   container_name: prometheus
+      #   ports:
+      #     - "9090:9090"
+      #   volumes:
+      #     - ./prometheus:/etc/prometheus
+      #   restart: always
+
+  rabbitmq:
+    restart: unless-stopped
+    container_name: rabbitmq
+    build:
+      context: rabbitmq/
+    ports:
+      - "1883:1883"
+      - "5672:5672"
+      - "15672:15672"
+      - "15675:15675"
+    env_file:
+      - ./config.env
+  # portainer:
+  #   image: portainer/portainer-ce:latest
+  #   container_name: portainer
+  #   ports:
+  #     - "9000:9000"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   restart: always
+
+  #  cloudflared:
+  #    image: cloudflare/cloudflared:latest
+  #    container_name: cloudflared
+  #    command: tunnel
+  #    ports:
+  #      - "53:53/udp"
+  #    restart: always
+  #    environment:
+  #      - TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query
+

@@ -1,0 +1,151 @@
+# detectors:
+#   cpu:
+#     type: cpu
+#     num_threads: 4
+#     model:
+#       path: "/cpu_model.tflite"
+  # tensorrt:
+  #   type: tensorrt
+  #   device: 0 #This is the default, select the first GPU
+
+# model:
+#   path: /config/model_cache/tensorrt/yolov7-320.trt
+#   input_tensor: nchw
+#   input_pixel_format: rgb
+#   width: 320
+#   height: 320
+
+# ffmpeg:
+#   hwaccel_args: -hwaccel_output_format yuv420p -c:v h264_nvmpi
+#   input_args: -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -flags low_delay -strict experimental -analyzeduration 1000M -probesize 1000M -rw_timeout 5000000
+#   output_args:
+#     record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c copy
+
+#No tocar sin saber
+mqtt:
+  enabled: false
+  host: rabbitmq
+  user: "guest"
+  password: "guest" 
+  client_id: "store_01" #Identifica la maquina  
+
+# Detecciones
+detect: 
+  # Cuantas detecciones por segundo por camara
+  fps: 5
+  enabled: True
+  # Cuantas frames tiene que faltar el objeto para considerarse desaparecido 
+  max_disappeared: 1
+  height: 640 #576
+  width: 640 #704
+  stationary:
+      interval: 1
+      threshold: 100
+      max_frames:
+        # Optional: Object specific values
+        objects:
+          person: 1000
+
+# Objetos filtro por objetos
+objects:
+      track:
+        - person
+      filters:
+        person:
+      # Optional: minimum width*height of the bounding box for the detected object (default: 0)
+          min_area: 1000
+      # Optional: maximum width*height of the bounding box for the detected object (default: 24000000)
+          max_area: 100000
+      # Optional: minimum score for the object to initiate tracking (default: shown below)
+          min_score: 0.3
+      # Optional: minimum decimal percentage for tracked object's computed score to be considered a true positive (default: shown below)
+          threshold: 0.5
+      
+
+# Grabaciones de eventos
+record:
+  # Guardamos todos los videos?.
+  enabled: False
+  # Cada cuanto nos fijamos si hay que borrar algun video viejo ocupando espacio?
+  expire_interval: 60
+  retain:
+    # Cuantos dias lo guardamos?
+    days: 1
+
+#Camaras 
+cameras:
+  # Camaras analogicas
+  cam_analog_1:
+    ffmpeg:
+      inputs:
+        - path: /videos/cola.mp4
+          input_args: -re -stream_loop -1 -fflags +genpts
+          roles:
+            - detect      
+    detect:
+      enabled: True
+
+  # Camaras IP   
+  cam_ip_1:
+    ffmpeg:
+      inputs:
+        - path: /videos/cola_frente.mp4
+          input_args: -re -stream_loop -1 -fflags +genpts
+          roles:
+            - detect       
+    detect:
+      enabled: True
+
+  cam_ip_2:
+    ffmpeg:
+      inputs:
+        - path: /videos/cola_medio.mp4
+          input_args: -re -stream_loop -1 -fflags +genpts
+          roles:
+            - detect   
+    detect:
+      enabled: True
+
+  cam_ip_3:
+    ffmpeg:
+      inputs:
+        - path: /videos/cola_final.mp4
+          input_args: -re -stream_loop -1 -fflags +genpts
+          roles:
+            - detect   
+    detect:
+      enabled: True    
+
+
+# Detectores
+#detectors:
+#  cpu1:
+#    type: cpu
+#    num_threads: 3
+
+detectors:
+  ov1:
+    type: openvino
+    device: AUTO
+    num_threads: 8
+    model:
+      path: /yolov8/bestYolo8n.xml #/yolov8/best.xml #/yolov8n/yolov8n.xml #/openvino-model/ssdlite_mobilenet_v2.xml
+  ov2:
+    type: openvino
+    device: AUTO
+    num_threads: 8
+    model:
+      path: /yolov8/bestYolo8n.xml
+      
+# Modelos
+model:
+  width: 640 #416 #704
+  height: 640 #416
+  input_tensor: nchw #nchw
+  input_pixel_format: rgb #bgr #rgb
+  model_type: yolov8
+  labelmap:
+    0: person
+#  #labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+
+

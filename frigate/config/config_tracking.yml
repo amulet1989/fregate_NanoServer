@@ -80,102 +80,77 @@ record:
 #Camaras 
 cameras:
 
-  G1V:
+  track1:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.63
+        - path: rtsp://admin:2Mini001.@192.168.88.73
           roles:
             - detect #Detecta personas
             - record #Graba el video
     detect:
       enabled: True
-    motion:
-      mask:
-        - 0,0,640,0,640,446,0,444
-        - 0,640,640,640,640,555,296,560,0,528
-        - 640,640,640,0,484,0,490,555
 
-  G2V:
+  track3:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.75
+        - path: rtsp://admin:2Mini001.@192.168.88.46
           roles:
             - detect #Detecta personas
             - record #Graba el video
     detect:
       enabled: True
-    motion:
-      mask:
-        - 0,0,640,0,640,443,0,448
-        - 0,640,640,640,640,530,324,560,0,536
 
-  G3V:
+  track4:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.56
+        - path: rtsp://admin:2Mini001.@192.168.88.59
           roles:
             - detect #Detecta personas
             - record #Graba el video
     detect:
       enabled: True
-    motion:
-      mask:
-        - 0,0,640,0,640,441,0,436
-        - 0,640,640,640,640,539,308,556,0,539
 
-  G4F:
+  track5:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.45
+        - path: rtsp://admin:2Mini001.@192.168.88.79
           roles:
             - detect #Detecta personas
             - record #Graba el video
     detect:
       enabled: True
-    motion:
-      mask:
-        - 640,0,640,106,0,65,0,0
-        - 640,206,640,640,0,640,107,172
 
-  G4V:
+  track6:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.64
+        - path: rtsp://admin:2Mini001.@192.168.88.70
           roles:
             - detect #Detecta personas
             - record #Graba el video
     detect:
       enabled: True
-    motion:
-      mask:
-        - 0,0,640,0,640,293,0,296
-        - 0,640,640,640,640,416,202,412
 
-  G5F:
+  track7:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.89
+        - path: rtsp://admin:2Mini001.@192.168.88.81
           roles:
             - detect #Detecta personas
             - record #Graba el video
     detect:
       enabled: True
-    motion:
-      mask:
-        - 0,0,640,0,640,59,0,86
-        - 0,640,640,640,640,156,0,201
 
-  G5V:
+  track8:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.53
+        - path: rtsp://admin:2Mini001.@192.168.88.49
           roles:
             - detect #Detecta personas
             - record #Graba el video
@@ -183,15 +158,13 @@ cameras:
       enabled: True
     motion:
       mask:
-        - 0,0,640,0,640,333,0,342
-        - 0,640,640,640,640,417,0,420
-        - 459,0,640,0,640,416,472,427
+       - 250,123,465,127,552,0,212,0
     
-  G6F:
+  track_nueva:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.74
+        - path: rtsp://admin:2Mini001.@192.168.88.100
           roles:
             - detect #Detecta personas
             - record #Graba el video
@@ -199,15 +172,13 @@ cameras:
       enabled: True
     motion:
       mask:
-        - 640,0,640,85,0,82,0,0
-        - 640,0,387,0,550,640,640,640
-        - 0,640,640,640,640,182,0,190
+        - 640,0,531,0,558,554,640,640
 
-  G6V:
+  track_pozo_frio:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.67
+        - path: rtsp://admin:2Mini001.@192.168.88.69
           roles:
             - detect #Detecta personas
             - record #Graba el video
@@ -215,15 +186,14 @@ cameras:
       enabled: True
     motion:
       mask:
-        - 0,0,640,0,640,385,0,385
-        - 640,588,640,0,422,0,452,461
-        - 0,640,640,640,640,471,0,460
+        - 179,0,0,0,0,389,177,367
+        - 180,0,594,0,506,109,207,39
     
-  G7V:
+  track_entrada:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.68
+        - path: rtsp://admin:2Mini001.@192.168.88.131
           roles:
             - detect #Detecta personas
             - record #Graba el video
@@ -231,89 +201,14 @@ cameras:
       enabled: True
     motion:
       mask:
-        - 0,0,640,0,640,440,0,412
-        - 0,0,155,0,149,533,0,584
-        - 640,565,640,640,0,640,0,566,147,535
-
-  G8V:
-    ffmpeg:
-#       hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.44
-          roles:
-            - detect #Detecta personas
-            - record #Graba el video
-    detect:
-      enabled: True
-    motion:
-      mask:
-        - 0,0,640,0,640,508,305,568,0,532
-
-  G9V:
-    ffmpeg:
-#       hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.77
-          roles:
-            - detect #Detecta personas
-            - record #Graba el video
-    detect:
-      enabled: True
-    motion:
-      mask:
-        - 401,0,640,0,640,640,553,640,440,610,433,502
-        - 0,0,640,0,640,489,0,491
-
-  G10V:
-    ffmpeg:
-#       hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.88
-          roles:
-            - detect #Detecta personas
-            - record #Graba el video
-    detect:
-      enabled: True
-    motion:
-      mask:
-        - 0,0,0,522,167,591,173,229
-        - 144,0,640,0,640,473,161,474
-        - 330,471,154,464,158,618
-
-  G11V:
-    ffmpeg:
-#       hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.87
-          roles:
-            - detect #Detecta personas
-            - record #Graba el video
-    detect:
-      enabled: True
-    motion:
-      mask:
-        - 0,0,640,0,640,430,0,606
-
-  G12V:
-    ffmpeg:
-#       hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.61
-          roles:
-            - detect #Detecta personas
-            - record #Graba el video
-    detect:
-      enabled: True
-    motion:
-      mask:
-        - 0,0,640,0,640,482,0,482
-        - 640,640,640,579,306,619,0,595,0,640
+        - 53,640,561,640,450,492,158,499
+        - 424,0,377,112,233,112,175,0
   
-  G13V:
+  track_salida:
     ffmpeg:
 #       hwaccel_args: preset-nvidia-h264
       inputs:
-        - path: rtsp://admin:2Mini001.@192.168.88.50
+        - path: rtsp://admin:2Mini001.@192.168.88.54
           roles:
             - detect #Detecta personas
             - record #Graba el video
@@ -321,8 +216,11 @@ cameras:
       enabled: True
     motion:
       mask:
-        - 0,640,154,640,147,0,0,0
-        - 75,640,640,640,640,384,65,356
+        - 42,437,125,412,121,288,35,269
+        - 77,640,640,640,507,498,182,516
+        - 388,121,420,0,206,0,249,129
+  
+  
 
 # Detectores
 #detectors:

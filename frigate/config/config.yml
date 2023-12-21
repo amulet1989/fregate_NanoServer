@@ -75,8 +75,11 @@ record:
     retain:
       default: 10
       mode: active_objects
-      
-      
+
+motion:
+    threshold: 50 
+    contour_area: 50
+           
 #Camaras 
 cameras:
 
@@ -320,9 +323,11 @@ cameras:
     detect:
       enabled: True
     motion:
+      threshold: 50
       mask:
-        - 0,640,154,640,147,0,0,0
-        - 75,640,640,640,640,384,65,356
+        - 0,640,337,640,212,23,0,0
+        - 75,640,640,640,640,384,51,253
+        - 589,0,571,288,196,262,202,0
 
 # Detectores
 #detectors:
@@ -336,13 +341,13 @@ detectors:
     device: AUTO
     num_threads: 4
     model:
-      path: /yolov8/bestYolo8n.xml 
+      path: /yolov8/yolov8m_tracking_pilar_11cam.xml 
   ov2:
     type: openvino
     device: AUTO
     num_threads: 4
     model:
-      path: /yolov8/bestYolo8n.xml
+      path: /yolov8/yolov8m_tracking_pilar_11cam.xml
   
       
 # Modelos
